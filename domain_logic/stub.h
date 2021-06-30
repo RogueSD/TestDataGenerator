@@ -8,20 +8,68 @@ public:
     {
 
     }
+    virtual ~DataGenerator()
+    {
+
+    }
 };
 
-class HarmonicDataGenerator : public DataGenerator
+class HarmonicMotionDataGenerator : public DataGenerator
 {
 public:
-    HarmonicDataGenerator()
-    {
+    HarmonicMotionDataGenerator(int) { }
+    ~HarmonicMotionDataGenerator() { }
 
-    }
-    void compute() override
-    {
-
-    }
+    void compute() override { }
     double getPhase()
+    {
+        return 0.0;
+    }
+
+};
+
+class CarDataGenerator : public DataGenerator
+{
+public:
+    CarDataGenerator(int) { }
+    ~CarDataGenerator() { }
+
+    void compute() override { }
+    double getFuelLevel()
+    {
+        return 0.0;
+    }
+    double getSpeed()
+    {
+        return 0.0;
+    }
+    double getTemperature()
+    {
+        return 0.0;
+    }
+    int getRotationalSpeed()
+    {
+        return 0;
+    }
+};
+
+class PlaneDataGenerator : public DataGenerator
+{
+public:
+    PlaneDataGenerator() { }
+    ~PlaneDataGenerator() { }
+
+    void compute() override { }
+
+    double getAltitude()
+    {
+        return 0.0;
+    }
+    double getFuelLevel()
+    {
+        return 0.0;
+    }
+    double getAttackAngle()
     {
         return 0.0;
     }
