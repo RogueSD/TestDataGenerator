@@ -4,6 +4,8 @@
 struct Data
 {
     char identity;
+
+    virtual ~Data() { }
 };
 
 #endif // DATA_H
