@@ -3,16 +3,18 @@
 
 #include "../Controllers/basecontroller.h"
 
-namespace factories {
-
-class AbstractFactory
+namespace factories
 {
-public:
-    virtual controllers::BaseController* createController(int, int)
+    class AbstractFactory
     {
-        return nullptr;
-    }
-};
-} // namespace Factories
+    public:
+        virtual ~AbstractFactory() { }
+
+        virtual controllers::BaseController* createController(int, int)
+        {
+            return nullptr;
+        }
+    };
+} // namespace factories
 
 #endif // FACTORIES_ABSTACTFACTORY_H
