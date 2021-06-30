@@ -4,23 +4,23 @@
 #include "stub.h"
 #include "../DataStorage/data.h"
 
-namespace controllers {
-
-class BaseController
+namespace controllers
 {
-protected:
-    int _count;
-    virtual void simulate()
+    class BaseController
     {
+    protected:
+        int _count;
 
-    }
-public:
-    virtual Data* collectData()
-    {
-        return nullptr;
-    }
-};
+        virtual void simulate() { }
+    public:
+        BaseController() { }
+        virtual ~BaseController() { }
 
+        virtual Data* collectData()
+        {
+            return new Data();
+        }
+    };
 } // namespace Controllers
 
 #endif // CONTROLLERS_BASECONTROLLER_H
