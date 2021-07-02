@@ -8,12 +8,9 @@ namespace factories
     class AbstractFactory
     {
     public:
-        virtual ~AbstractFactory() { }
-
-        virtual controllers::BaseController* createController(int, int)
-        {
-            return nullptr;
-        }
+        AbstractFactory();
+        virtual ~AbstractFactory();
+        virtual controllers::BaseController* createController(int, int) = 0;
     };
 } // namespace factories
 

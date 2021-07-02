@@ -30,9 +30,16 @@ PlaneData::~PlaneData()
     delete fuelLevelData;
 }
 
-void PlaneData::collect(PlaneDataGenerator *generator)
+Data* PlaneData::clone()
 {
-    fuelLevelData->push_back(generator->getFuelLevel());
-    altitudeData->push_back(generator->getAltitude());
-    attackAngleData->push_back(generator->getAttackAngle());
+    return new PlaneData(*this);
+}
+
+void PlaneData::collect(DataGenerator *generator)
+{
+    PlaneDataGenerator* cast_generator = static_cast<PlaneDataGenerator*>(generator);
+
+    fuelLevelData->push_back(cast_generator->getFuelLevel());
+    altitudeData->push_back(cast_generator->getAltitude());
+    attackAngleData->push_back(cast_generator->getAttackAngle());
 }

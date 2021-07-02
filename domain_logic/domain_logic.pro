@@ -10,12 +10,14 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Controllers/basecontroller.cpp \
     Controllers/carcontroller.cpp \
     Controllers/harmonicmotioncontroller.cpp \
     Controllers/planecontroller.cpp \
     DataStorage/cardata.cpp \
     DataStorage/harmonicmotiondata.cpp \
     DataStorage/planedata.cpp \
+    Factories/abstractfactory.cpp \
     Factories/carfactory.cpp \
     Factories/harmonicmotionfactory.cpp \
     Factories/planefactory.cpp \

@@ -4,31 +4,59 @@ namespace controllers
 {
     PlaneController::PlaneController(int step, int duration)
     {
-        _count = duration / step;
-        _data = new PlaneData(_count);
-        _generator = new PlaneDataGenerator(); // заглушка
+        _validator = new PlaneValidator();
+
+        if(!_validator->validateTime(duration, step))
+            throw std::invalid_argument("Incorrect time parameters.");
+
+        _step = step;
+        _duration = duration;
+
+        int count = duration / step;
+        _data = new PlaneData(count);
     }
 
-    PlaneController::~PlaneController()
-    {
-        delete _generator;
-        delete _data;
-    }
+    PlaneController::~PlaneController() { }
 
-    void PlaneController::simulate()
+    void PlaneController::initialize()
     {
-        for(int i = 0; i < _count; i++)
+        if(0)
+        //if(!ui->randomize_checkbox->isChecked())
         {
-            _generator->compute();
-            _data->collect(_generator);
-        }
-    }
+            double maxFuelLevel = 1.0;
+            //double maxFuelLevel = ui->max_fuelLevel_spinbox->value();
+            double maxAltitude = 1.0;
+            // double maxAltitude =  ui->max_altitude_spinbox->value();
+            double maxAttackAngle = 1.0;
+            //double maxAttackAngle =  ui->max_attackAngle_spinbox->value();
 
-    Data* PlaneController::collectData()
-    {
-        simulate();
-        Data* data = new PlaneData(*_data);
-        return data;
+            if(1)
+            //if(ui->domain_radiobutton->isChecked())
+            {
+                double minFuelLevel = 1.0;
+                //double minFuelLevel = ui->min_fuelLevel_spinbox->value();
+                double minAltitude = 1.0;
+                // double minAltitude =  ui->min_altitude_spinbox->value();
+                double minAttackAngle = 1.0;
+                //double minAttackAngle =  ui->min_attackAngle_spinbox->value();
+
+                validate("\"Fuel level\"", PlaneValidator::validateFuelLevel, maxFuelLevel, minFuelLevel);
+                validate("\"Altitude\"", PlaneValidator::validateAltitude, maxAltitude, minAltitude);
+                validate("\"Attack angle\"", PlaneValidator::validateAttackAngle, maxAttackAngle, minAttackAngle);
+
+                //_generator = new PlaneDataGenerator(_step, minFuelLevel, maxFuelLevel, minAltitude, maxAltitude, minAttackAngle, maxAttackAngle);
+            }
+            else
+            {
+                validate("\"Fuel level\"", PlaneValidator::validateFuelLevel, maxFuelLevel);
+                validate("\"Altitude\"", PlaneValidator::validateAltitude, maxAltitude);
+                validate("\"Attack angle\"", PlaneValidator::validateAttackAngle, maxAttackAngle);
+
+                //_generator = new PlaneDataGenerator(_step, maxFuelLevel, maxAltitude, maxAttackAngle);
+            }
+        }
+        else
+           _generator = new PlaneDataGenerator(_step);
     }
 
 } // namespace controllers

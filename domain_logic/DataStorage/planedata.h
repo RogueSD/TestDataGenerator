@@ -16,7 +16,8 @@ public:
     PlaneData(const PlaneData&);
     ~PlaneData();
 
-    void collect(PlaneDataGenerator*);
+    void collect(DataGenerator*) override;
+    Data* clone() override;
 };
 
 #endif // PLANEDATA_H

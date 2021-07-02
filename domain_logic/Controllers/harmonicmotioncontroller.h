@@ -4,21 +4,17 @@
 #include "basecontroller.h"
 #include "../DataStorage/harmonicmotiondata.h"
 #include "stub.h"
+#include "../Validators/harmonicmotionvalidator.h"
 
 namespace controllers
 {
     class HarmonicMotionController : public BaseController
     {
     private:
-        HarmonicMotionData* _data;
-        HarmonicMotionDataGenerator* _generator;
-
-        void simulate() override;
+        void initialize() override;
     public:
         HarmonicMotionController(int, int);
         ~HarmonicMotionController();
-
-        Data* collectData() override;
     };
 } // namespace controllers
 

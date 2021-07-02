@@ -1,12 +1,18 @@
 #define HARMONIC 1
-#define PLANE 2
-#define CAR 3
+#define CAR 2
+#define PLANE 3
+
 #include "Factories/harmonicmotionfactory.h"
 #include "Factories/carfactory.h"
 #include "Factories/planefactory.h"
+#include <stdexcept>
 
-Data* generateTestData(char id, int step, int duration)
+Data* generateTestData(char id)
 {
+    int step = 0;
+    //int step = ui->step_spinbox->value();
+    int duration = 0;
+    //int duration = ui->duration_spinbox->value();
     factories::AbstractFactory* factory;
 
     switch(id)
@@ -21,7 +27,7 @@ Data* generateTestData(char id, int step, int duration)
         factory = new factories::PlaneFactory();
         break;
     default:
-        factory = nullptr;
+        throw std::invalid_argument("There is no controller with this ID.");
         break;
     }
 

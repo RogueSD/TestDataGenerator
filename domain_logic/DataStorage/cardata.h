@@ -16,7 +16,8 @@ public:
     CarData(const CarData&);
     ~CarData();
 
-    void collect(CarDataGenerator*);
+    void collect(DataGenerator*) override;
+    Data* clone() override;
 };
 
 #endif // CARDATA_H

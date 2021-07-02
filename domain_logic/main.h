@@ -2,6 +2,6 @@
 #define MAIN_H
 #include "DataStorage/data.h"
 
-Data* generateTestData(char id, int step, int duration);
+Data* generateTestData(char id);
 
 #endif // MAIN_H

@@ -3,21 +3,17 @@
 
 #include "basecontroller.h"
 #include "../DataStorage/planedata.h"
+#include "../Validators/planevalidator.h"
 
 namespace controllers
 {
     class PlaneController : public BaseController
     {
     private:
-        PlaneData* _data;
-        PlaneDataGenerator* _generator;
-
-        void simulate() override;
+        void initialize() override;
     public:
         PlaneController(int, int);
         ~PlaneController();
-
-        Data* collectData() override;
     };
 } // namespace controllers
 

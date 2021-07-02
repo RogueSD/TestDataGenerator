@@ -3,21 +3,17 @@
 
 #include "basecontroller.h"
 #include "../DataStorage/cardata.h"
+#include "../Validators/carvalidator.h"
 
 namespace controllers
 {
     class CarController : public BaseController
     {
     private:
-        CarData* _data;
-        CarDataGenerator* _generator;
-
-        void simulate() override;
+        void initialize() override;
     public:
         CarController(int, int);
         ~CarController();
-
-        Data* collectData() override;
     };
 
 } // namespace controllers

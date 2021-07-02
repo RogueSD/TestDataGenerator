@@ -56,7 +56,7 @@ public:
 class PlaneDataGenerator : public DataGenerator
 {
 public:
-    PlaneDataGenerator() { }
+    PlaneDataGenerator(int) { }
     ~PlaneDataGenerator() { }
 
     void compute() override { }

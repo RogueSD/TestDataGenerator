@@ -19,7 +19,14 @@ HarmonicMotionData::~HarmonicMotionData()
     delete phaseData;
 }
 
-void HarmonicMotionData::collect(HarmonicMotionDataGenerator* generator)
+Data* HarmonicMotionData::clone()
 {
-    phaseData->push_back(generator->getPhase());
+    return new HarmonicMotionData(*this);
+}
+
+void HarmonicMotionData::collect(DataGenerator* generator)
+{
+    HarmonicMotionDataGenerator* cast_generator = static_cast<HarmonicMotionDataGenerator*>(generator);
+
+    phaseData->push_back(cast_generator->getPhase());
 }

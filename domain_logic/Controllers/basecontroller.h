@@ -3,23 +3,27 @@
 
 #include "stub.h"
 #include "../DataStorage/data.h"
+#include "../Validators/validator.h"
+#include <stdexcept>
 
 namespace controllers
 {
     class BaseController
     {
     protected:
-        int _count;
+        Validator* _validator;
+        Data* _data;
+        DataGenerator* _generator;
+        int _step, _duration;
 
-        virtual void simulate() { }
+        void validate(const char*, bool(*)(double), double, double);
+        void validate(const char*, bool(*)(double), double);
+        virtual void initialize() = 0;
+        void simulate();
     public:
-        BaseController() { }
-        virtual ~BaseController() { }
-
-        virtual Data* collectData()
-        {
-            return new Data();
-        }
+        BaseController();
+        virtual ~BaseController();
+        Data* collectData();
     };
 } // namespace Controllers
 

@@ -14,7 +14,8 @@ public:
     HarmonicMotionData(const HarmonicMotionData&);
     ~HarmonicMotionData();
 
-    void collect(HarmonicMotionDataGenerator*);
+    void collect(DataGenerator*) override;
+    Data* clone() override;
 };
 
 #endif // HARMONICMOTIONDATA_H

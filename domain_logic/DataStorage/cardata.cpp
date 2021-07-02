@@ -33,10 +33,17 @@ CarData::~CarData()
     delete fuelLevelData;
 }
 
-void CarData::collect(CarDataGenerator *generator)
+Data* CarData::clone()
 {
-    fuelLevelData->push_back(generator->getFuelLevel());
-    speedData->push_back(generator->getSpeed());
-    temperatureData->push_back(generator->getTemperature());
-    rpmData->push_back(generator->getRotationalSpeed());
+    return new CarData(*this);
+}
+
+void CarData::collect(DataGenerator *generator)
+{
+    CarDataGenerator* cast_generator = static_cast<CarDataGenerator*>(generator);
+
+    fuelLevelData->push_back(cast_generator->getFuelLevel());
+    speedData->push_back(cast_generator->getSpeed());
+    temperatureData->push_back(cast_generator->getTemperature());
+    rpmData->push_back(cast_generator->getRotationalSpeed());
 }
