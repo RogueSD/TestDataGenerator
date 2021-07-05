@@ -37,22 +37,15 @@ namespace controllers
     {
         if(_options)
         {
-            double maxFuelLevel = 1.0;
-            //double maxFuelLevel = ui->max_fuelLevel_spinbox->value();
-            double maxAltitude = 1.0;
-            // double maxAltitude =  ui->max_altitude_spinbox->value();
-            double maxAttackAngle = 1.0;
-            //double maxAttackAngle =  ui->max_attackAngle_spinbox->value();
+            double maxFuelLevel = _options->getMaxFuelLevel();
+            double maxAltitude = _options->getMaxAltitude();
+            double maxAttackAngle = _options->getMaxAttackAngle();
 
-            if(1)
-            //if(ui->domain_radiobutton->isChecked())
+            if(_options->state() == InputDataState::LIMITED)
             {
-                double minFuelLevel = 1.0;
-                //double minFuelLevel = ui->min_fuelLevel_spinbox->value();
-                double minAltitude = 1.0;
-                // double minAltitude =  ui->min_altitude_spinbox->value();
-                double minAttackAngle = 1.0;
-                //double minAttackAngle =  ui->min_attackAngle_spinbox->value();
+                double minFuelLevel = _options->getMinFuelLevel();
+                double minAltitude = _options->getMinAltitude();
+                double minAttackAngle = _options->getMinAttackAngle();
 
                 validate("\"Fuel level\"", PlaneValidator::validateFuelLevel, maxFuelLevel, minFuelLevel);
                 validate("\"Altitude\"", PlaneValidator::validateAltitude, maxAltitude, minAltitude);
