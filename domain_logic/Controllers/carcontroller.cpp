@@ -2,11 +2,11 @@
 
 namespace controllers
 {
-    CarController::CarController(int step, int duration)
+    CarController::CarController(double step, int duration)
     {
         _validator = new CarValidator();
 
-        if(!_validator->validateTime(duration, step))
+        if(!(_validator->validateTime(duration, step)))
             throw std::invalid_argument("Incorrect time parameters.");
 
         _step = step;
@@ -14,41 +14,46 @@ namespace controllers
 
         int count = duration / step;
         _data = new CarData(count);
+        _options = nullptr;
     }
 
-    CarController::~CarController() { }
+    CarController::~CarController()
+    {
+        delete _options;
+    }
+
+    void CarController::configureGenerator(DataOptions *options)
+    {
+        CarDataOptions* carOptions = dynamic_cast<CarDataOptions*>(options);
+
+        if(carOptions)
+            _options = carOptions;
+        else
+            throw std::invalid_argument("Incorrect configuration!");
+    }
 
     void CarController::initialize()
     {
-        if(0)
-        //if(!ui->randomize_checkbox->isChecked())
+        if(_options)
         {            
-            double maxFuelLevel = 1.0;
-            //double maxFuelLevel = ui->max_fuelLevel_spinbox->value();
-            double maxRotationalSpeed = 1.0;
-            // double maxRotationalSpeed =  ui->max_rpm_spinbox->value();
-            double maxTemperature = 1.0;
-            //double maxTemperature =  ui->max_temperature_spinbox->value();
-            double maxSpeed = 1.0;
-            // double maxSpeed = ui->max_speed_spinbox->value();
-            if(1)
-            //if(ui->domain_radiobutton->isChecked())
+            double maxFuelLevel = _options->getMaxFuelLevel();
+            double maxRotationalSpeed = _options->getMaxEngineRPM();
+            double maxTemperature = _options->getMaxTemperature();
+            double maxSpeed = _options->getMaxSpeed();
+
+            if(_options->state() == InputDataState::LIMITED)
             {
-                double minFuelLevel = 1.0;
-                //double minFuelLevel = ui->min_fuelLevel_spinbox->value();
-                double minRotationalSpeed = 1.0;
-                // double minRotationalSpeed =  ui->min_rpm_spinbox->value();
-                double minTemperature = 1.0;
-                //double minTemperature =  ui->min_temperature_spinbox->value();
-                double minSpeed = 1.0;
-                // double minSpeed = ui->min_speed_spinbox->value();
+                double minFuelLevel = _options->getMinFuelLevel();
+                double minRotationalSpeed = _options->getMinEngineRPM();
+                double minTemperature = _options->getMinTemperature();
+                double minSpeed = _options->getMinSpeed();
 
                 validate("\"Fuel level\"", CarValidator::validateFuelLevel, maxFuelLevel, minFuelLevel);
                 validate("\"RPM\"", CarValidator::validateEngineRPM, maxRotationalSpeed, minRotationalSpeed);
                 validate("\"Temperature\"", CarValidator::validateEngineTemperature, maxTemperature, minTemperature);
                 validate("\"Speed\"", CarValidator::validateSpeed, maxSpeed, minSpeed);
 
-                //_generator = new CarDataGenerator(_step, minSpeed, maxSpeed, minFuelLevel, maxFuelLevel, minTemperature, maxTemperature, minRotationalSpeed, maxRotationalSpeed);
+                _generator = new CarDataGenerator(_step, minSpeed, maxSpeed, minFuelLevel, maxFuelLevel, minTemperature, maxTemperature, minRotationalSpeed, maxRotationalSpeed);
             }
             else
             {
@@ -57,7 +62,7 @@ namespace controllers
                 validate("\"Temperature\"", CarValidator::validateEngineTemperature, maxTemperature);
                 validate("\"Speed\"", CarValidator::validateSpeed, maxSpeed);
 
-                //_generator = new CarDataGenerator(_step, maxSpeed, maxFuelLevel, maxTemperature, maxRotationalSpeed);
+                _generator = new CarDataGenerator(_step, maxSpeed, maxFuelLevel, maxTemperature, maxRotationalSpeed);
             }
         }
         else

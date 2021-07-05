@@ -1,6 +1,7 @@
 #ifndef FACTORIES_HARMONICFACTORY_H
 #define FACTORIES_HARMONICFACTORY_H
 
+#include "domain_logic_global.h"
 #include "abstractfactory.h"
 
 namespace factories
@@ -11,7 +12,7 @@ namespace factories
         HarmonicMotionFactory();
         ~HarmonicMotionFactory();
 
-        controllers::BaseController* createController(int, int) override;
+        controllers::BaseController* createController(double, int) override;
     };
 } // namespace factories
 

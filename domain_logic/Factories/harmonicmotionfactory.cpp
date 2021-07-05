@@ -6,7 +6,7 @@ namespace factories
     HarmonicMotionFactory::HarmonicMotionFactory() { }
     HarmonicMotionFactory::~HarmonicMotionFactory() { }
 
-    controllers::BaseController* HarmonicMotionFactory::createController(int step, int duration)
+    controllers::BaseController* HarmonicMotionFactory::createController(double step, int duration)
     {
         return new controllers::HarmonicMotionController(step, duration);
     }

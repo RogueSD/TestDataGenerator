@@ -2,10 +2,15 @@
 #define PLANEDATA_H
 
 #include "data.h"
-#include "stub.h"
 #include <qvector.h>
 
-class PlaneData : public Data
+#if defined(DOMAIN_LOGIC_LIBRARY)
+#  define PLANE_DATA_EXPORT Q_DECL_EXPORT
+#else
+#  define PLANE_DATA_EXPORT Q_DECL_IMPORT
+#endif
+
+class PLANE_DATA_EXPORT PlaneData : public Data
 {
 public:
     QVector<double>* fuelLevelData;

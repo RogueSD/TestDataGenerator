@@ -9,6 +9,9 @@ CONFIG += c++11
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+LIBS += -L../data/debug -ldata \
+        -L../Validators/debug -lValidators
+
 SOURCES += \
     Controllers/basecontroller.cpp \
     Controllers/carcontroller.cpp \
@@ -21,7 +24,11 @@ SOURCES += \
     Factories/carfactory.cpp \
     Factories/harmonicmotionfactory.cpp \
     Factories/planefactory.cpp \
-    main.cpp
+    Options/cardataoptions.cpp \
+    Options/dataoptions.cpp \
+    Options/harmonicmotiondataoptions.cpp \
+    Options/planedataoptions.cpp \
+    domain_logic.cpp
 
 HEADERS += \
     Controllers/basecontroller.h \
@@ -36,8 +43,13 @@ HEADERS += \
     Factories/carfactory.h \
     Factories/harmonicmotionfactory.h \
     Factories/planefactory.h \
+    Options/cardataoptions.h \
+    Options/dataoptions.h \
+    Options/harmonicmotiondataoptions.h \
+    Options/inputedatastate.h \
+    Options/planedataoptions.h \
+    domain_logic.h \
     domain_logic_global.h \
-    main.h \
     stub.h
 
 # Default rules for deployment.

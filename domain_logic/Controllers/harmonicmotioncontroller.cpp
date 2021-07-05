@@ -2,7 +2,7 @@
 
 namespace controllers
 {
-    HarmonicMotionController::HarmonicMotionController(int step, int duration)
+    HarmonicMotionController::HarmonicMotionController(double step, int duration)
     {
         _validator = new HarmonicMotionValidator();
 
@@ -14,39 +14,49 @@ namespace controllers
 
         int count = duration / step;
         _data = new HarmonicMotionData(count);
+        _options = nullptr;
     }
 
-    HarmonicMotionController::~HarmonicMotionController() { }
+    HarmonicMotionController::~HarmonicMotionController()
+    {
+        delete _options;
+    }
+
+    void HarmonicMotionController::configureGenerator(DataOptions *options)
+    {
+        HarmonicMotionDataOptions* harmonicOptions = dynamic_cast<HarmonicMotionDataOptions*>(options);
+
+        if(harmonicOptions)
+            _options = harmonicOptions;
+        else
+            throw std::invalid_argument("Incorrect configuration!");
+    }
 
     void HarmonicMotionController::initialize()
     {
-        if(0)
-        //if(!ui->randomize_checkbox->isChecked())
+        if(_options)
         {
-            double maxAmplitude = 1.0;
-            //double maxAmplitude = ui->max_amplitude_spinbox->value();
-            double maxCyclicFrequency = 1.0;
-            //double maxCyclicFrequency = ui->max_freq_spinbox->value();
+            double maxAmplitude = _options->getMaxAmplitude();
+            double maxCyclicFrequency = _options->getMaxCyclicFrequency();
+            double maxPhase = _options->getMaxPhase();
 
-            if(1)
-            //if(ui->domain_radiobutton->isChecked())
+            if(_options->state() == InputDataState::LIMITED)
             {
-                double minAmplitude = 1.0;
-                //double minAmplitude = ui->min_amplitude_spinbox->value();
-                double minCyclicFrequency = 1.0;
-                //double minCyclicFrequency = ui->min_freq_spinbox->value();
+                double minAmplitude = _options->getMinAmplitude();
+                double minCyclicFrequency = _options->getMinCyclicFrequency();
+                double minPhase = _options->getMinPhase();
 
                 validate("\"Amplitude\"", HarmonicMotionValidator::validateAmplitude, maxAmplitude, minAmplitude);
                 validate("\"Cyclic frequency\"", HarmonicMotionValidator::validateCyclicFrequency, maxCyclicFrequency, minCyclicFrequency);
 
-                //_generator = new HarmonicMotionDataGenerator(step, minAmplitude, maxAmplitude, minCyclicFrequency, maxCyclicFrequency);
+                //_generator = new HarmonicMotionDataGenerator(_step, minAmplitude, maxAmplitude, minCyclicFrequency, maxCyclicFrequency, minPhase, maxPhase);
             }
             else
             {
                 validate("\"Amplitude\"", HarmonicMotionValidator::validateAmplitude, maxAmplitude);
                 validate("\"Cyclic frequency\"", HarmonicMotionValidator::validateCyclicFrequency, maxCyclicFrequency);
 
-                //_generator = new HarmonicMotionDataGenerator(step, maxAmplitude, maxCyclicFrequency);
+                //_generator = new HarmonicMotionDataGenerator(_step, maxAmplitude, maxCyclicFrequency, maxPhase);
             }
         }
         else

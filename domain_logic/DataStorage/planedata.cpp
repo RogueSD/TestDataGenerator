@@ -1,5 +1,8 @@
 #include "planedata.h"
+#include "stub.h"
+
 #define PLANE 2
+
 
 PlaneData::PlaneData(int count)
 {

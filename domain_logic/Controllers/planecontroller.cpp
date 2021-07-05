@@ -1,8 +1,9 @@
 #include "planecontroller.h"
+#include "stub.h"
 
 namespace controllers
 {
-    PlaneController::PlaneController(int step, int duration)
+    PlaneController::PlaneController(double step, int duration)
     {
         _validator = new PlaneValidator();
 
@@ -14,14 +15,27 @@ namespace controllers
 
         int count = duration / step;
         _data = new PlaneData(count);
+        _options = nullptr;
     }
 
-    PlaneController::~PlaneController() { }
+    PlaneController::~PlaneController()
+    {
+        delete _options;
+    }
+
+    void PlaneController::configureGenerator(DataOptions *options)
+    {
+        PlaneDataOptions* planeOptions = dynamic_cast<PlaneDataOptions*>(options);
+
+        if(planeOptions)
+            _options = planeOptions;
+        else
+            throw std::invalid_argument("Incorrect configuration!");
+    }
 
     void PlaneController::initialize()
     {
-        if(0)
-        //if(!ui->randomize_checkbox->isChecked())
+        if(_options)
         {
             double maxFuelLevel = 1.0;
             //double maxFuelLevel = ui->max_fuelLevel_spinbox->value();

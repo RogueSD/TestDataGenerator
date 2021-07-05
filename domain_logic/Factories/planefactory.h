@@ -1,6 +1,7 @@
 #ifndef FACTORIES_PLANEFACTORY_H
 #define FACTORIES_PLANEFACTORY_H
 
+#include "domain_logic_global.h"
 #include "abstractfactory.h"
 
 namespace factories
@@ -11,7 +12,7 @@ namespace factories
         PlaneFactory();
         ~PlaneFactory();
 
-        controllers::BaseController* createController(int, int) override;
+        controllers::BaseController* createController(double, int) override;
     };
 } // namespace factories
 

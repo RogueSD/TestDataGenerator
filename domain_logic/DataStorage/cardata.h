@@ -3,8 +3,15 @@
 
 #include "data.h"
 #include <qvector.h>
-#include "stub.h"
-struct CarData : public Data
+#include "../data/CarDataGenerator.h"
+
+#if defined(DOMAIN_LOGIC_LIBRARY)
+#  define CAR_DATA_EXPORT Q_DECL_EXPORT
+#else
+#  define CAR_DATA_EXPORT Q_DECL_IMPORT
+#endif
+
+struct CAR_DATA_EXPORT CarData : public Data
 {
 public:
     QVector<double>* fuelLevelData;

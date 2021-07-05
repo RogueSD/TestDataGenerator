@@ -28,5 +28,5 @@ void HarmonicMotionData::collect(DataGenerator* generator)
 {
     HarmonicMotionDataGenerator* cast_generator = static_cast<HarmonicMotionDataGenerator*>(generator);
 
-    phaseData->push_back(cast_generator->getPhase());
+    phaseData->push_back(cast_generator->getX());
 }

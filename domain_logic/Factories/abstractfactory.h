@@ -1,6 +1,7 @@
 #ifndef FACTORIES_ABSTACTFACTORY_H
 #define FACTORIES_ABSTACTFACTORY_H
 
+#include "domain_logic_global.h"
 #include "../Controllers/basecontroller.h"
 
 namespace factories
@@ -10,7 +11,7 @@ namespace factories
     public:
         AbstractFactory();
         virtual ~AbstractFactory();
-        virtual controllers::BaseController* createController(int, int) = 0;
+        virtual controllers::BaseController* createController(double, int) = 0;
     };
 } // namespace factories
 

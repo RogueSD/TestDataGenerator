@@ -3,9 +3,16 @@
 
 #include "data.h"
 #include <qvector.h>
-#include "stub.h"
+#include "../data/HarmonicMotionDataGenerator.h"
 
-struct HarmonicMotionData : public Data
+#if defined(DOMAIN_LOGIC_LIBRARY)
+#  define HARMONIC_DATA_EXPORT Q_DECL_EXPORT
+#else
+#  define HARMONIC_DATA_EXPORT Q_DECL_IMPORT
+#endif
+
+
+struct HARMONIC_DATA_EXPORT HarmonicMotionData : public Data
 {
 public:
     QVector<double>* phaseData;
